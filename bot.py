@@ -88,14 +88,17 @@ if k["key"] == key:
 
     expire_time = datetime.strptime(k["expire_at"], "%Y-%m-%d %H:%M:%S")
 
+    # kiểm tra key hết hạn
     if expire_time < datetime.now():
         return jsonify({"status": "expired"})
 
+    # tạo danh sách hwid nếu chưa có
     if "hwids" not in k:
         k["hwids"] = []
 
     max_devices = k.get("devices", 1)
 
+    # kiểm tra thiết bị
     if hwid in k["hwids"]:
         pass
     elif len(k["hwids"]) < max_devices:
