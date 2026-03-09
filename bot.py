@@ -98,6 +98,23 @@ if k["key"] == key:
 
     if hwid in k["hwids"]:
         pass
+    elif len(k["hwids"]) < max_devices:
+        k["hwids"].append(hwid)
+    else:
+        return jsonify({"status": "device_limit"})
+
+    expire_time = datetime.strptime(k["expire_at"], "%Y-%m-%d %H:%M:%S")
+
+    if expire_time < datetime.now():
+        return jsonify({"status": "expired"})
+
+    if "hwids" not in k:
+        k["hwids"] = []
+
+    max_devices = k.get("devices", 1)
+
+    if hwid in k["hwids"]:
+        pass
 
     elif len(k["hwids"]) < max_devices:
         k["hwids"].append(hwid)
