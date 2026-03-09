@@ -90,7 +90,6 @@ if k["key"] == key:
 
     # kiểm tra key hết hạn
     if expire_time < datetime.now():
-        return jsonify({"status": "expired"})
 
     # tạo danh sách hwid nếu chưa có
     if "hwids" not in k:
